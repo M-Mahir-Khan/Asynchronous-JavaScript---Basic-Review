@@ -34,10 +34,10 @@ const getTools = () => {
         request.open("GET", "User.json");
         request.send();
         // UNSENT 0
-            // OPENED  1
-            // HEADERS_RECEIVED 2
-            // LOADING 3
-            // DONE 4
+        // OPENED  1
+        // HEADERS_RECEIVED 2
+        // LOADING 3
+        // DONE 4
     })
 }
 
@@ -49,6 +49,7 @@ getTools().then(data => {
 
 
 // =================== fetch api ==========================
+
 fetch("User.json").then(data => {
     return data.json();
 }).then(data => {
@@ -56,3 +57,19 @@ fetch("User.json").then(data => {
 }).catch(err => {
     console.log(errs);
 })
+
+// =================== Async & Await ==========================
+
+const getInfo = async () => {
+    const response = await fetch("User.json");
+
+    if(response.status !== 200){
+        throw new Error("could not fetch data")
+    }
+    const data = await response.json();
+    return data
+}
+
+getInfo()
+    .then(data => console.log("Resolved",data))
+    .catch(err => console.log("Rejected",err.message));
